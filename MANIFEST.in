@@ -1,0 +1,12 @@
+recursive-exclude .
+recursive-include djobberbase/templates/djobberbase/emails *
+recursive-include djobberbase/templates/djobberbase *
+recursive-include djobberbase/locale/ *
+recursive-include djobberbase/media/css/ *
+recursive-include djobberbase/media/img/ *
+recursive-include djobberbase/media/js/ *
+include AUTHORS
+include LICENSE
+include README.rst
+include TODO
+

@@ -1,0 +1,216 @@
+{% extends "djobberbase/base.html" %}
+
+{% block content %}
+
+            {% if object.is_temporary and page_type == 'confirm' %}
+            <br />
+            <div class="posted-pending">
+                Your job was posted, but since this is the first time you post with this e-mail address, we need to manually verify it.<br>Thank you for your patience, as the ad should be published ASAP. We'll send you an e-mail when that happens. <br><br>From now on, every ad you post with this e-mail address will instantly be published.<br>
+            </div>
+            {% else %} 
+
+				<div id="job-details">
+                    {% if page_type == 'detail' %}
+							<div id="applied-to-job"> 
+                        				{{ object.get_application_count }}
+								<p>applicants</p> 
+							</div> 
+                    {% endif %}
+				<h2>
+				    <img src="/img/icon-{{ object.jobtype.var_name }}.png" alt="Full-time" /> {{ object.title }}
+    			</h2>
+			<p> 
+				<span class="fading">at</span>
+                    {% if object.url %} 
+                        <a href="{{ object.url }}" target="_blank" rel="nofollow">{{ object.company }}</a>
+                    {% else %} 
+                        {{ object.company }}
+                    {% endif %}
+					<span class="fading">in</span> 
+                    <strong>
+                            {% if object.city %} 
+                                {{ object.city }} 
+                            {% else %} 
+                                {{ object.outside_location }} 
+                            {% endif %}
+                    </strong> 
+			</p> 
+			<div id="job-description">
+                {% if markup_lang %}
+                    {% load djobberbase_tags %}
+                    {{ object.description_html|safe|nofollow }}
+                {% else %}
+                    {{object.description|linebreaksbr}}
+                {% endif %}
+			</div>
+ 
+			<br /> 
+
+    {% if object.apply_online and page_type == 'detail' %}
+
+    <div id="apply_online_now">
+        <a href="#" onclick="$('#apply-online').toggle(); window.location.href = '#apply'; return false;">&raquo; Apply now</a>
+    </div>
+
+    <div id="apply-online" style="display: none;">
+		<form id="frm-apply-online" method="post" enctype="multipart/form-data" action="">
+            {% csrf_token %}
+            <span class="validation-error">
+                {{ apform.non_field_errors }}
+            </span>
+			<table>
+				<tr>
+					<td><label for="apply_name">Your name:</label></td>
+
+					<td>
+                        {{ apform.apply_name }}
+						<span class="validation-error">
+                            {{ apform.apply_name.errors }}
+                        </span>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="apply_email">Your e-mail:</label></td>
+					<td>
+						{{ apform.apply_email }}
+						<span class="validation-error">
+                            {{ apform.apply_email.errors }}
+                        </span>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top"><label for="apply_msg">Message<br />or letter of intention:</label></td>
+					<td>
+						{{ apform.apply_msg }}
+						<span class="validation-error">
+                            {{ apform.apply_msg.errors }}
+                        </span>	
+					</td>
+
+				</tr>
+				<tr>
+					<td valign="top"><label for="apply_cv">Upload resume/CV:</label></td>
+					<td>
+						{{ apform.apply_cv }}
+						<span class="validation-error">
+                            {{ apform.apply_cv.errors }}
+                        </span>	
+						<div class="suggestion">Max. 3 MB. Recommended formats: PDF, RTF, DOC, ODT. </div>
+					</td>
+
+				</tr>
+                {% if apform.captcha %}
+				<tr>
+					<td valign="top"><label for="captcha">Captcha:</label></td>
+					<td>
+						{{ apform.captcha }}
+						<span class="validation-error">
+                            {{ apform.captcha.errors }}
+                        </span>
+					</td>
+				</tr>
+                {% endif %}
+			    <tr><td colspan="2">&nbsp;</td></tr>
+				<tr>
+					<td colspan="2">
+						<input type="submit" name="submit" id="submit" value="Send my application" /> or
+						<a href="#" onclick="$('#apply-online').toggle(); return false;">cancel</a>
+					</td>
+				</tr>
+
+			</table>
+			<input type="hidden" name="job_id" id="job_id" value="{{ object.id }}" />
+		</form>
+	</div><!-- #apply-online -->
+
+    <script type="text/javascript">
+
+	$(document).ready(function() {
+        $("#frm-apply-online").validate({
+		    rules: {
+			    apply_name: { required: true },
+			    apply_email: { required: true, email: true },
+			    apply_msg: { required: true },
+			    apply_cv: { accept: "{%for ext in cv_extensions%}{{ext}}{% if not forloop.last %}|{% endif %}{%endfor%}" }
+		    },
+		    messages: {
+			    apply_name: '<img src="/img/icon-delete.png" alt="" / >',
+			    apply_email: '<img src="/img/icon-delete.png" alt="" / >',
+			    apply_msg: '<img src="/img/icon-delete.png" alt="" / >',
+			    apply_cv: '<img src="/img/icon-delete.png" alt="" / >'
+		    }
+	    });
+
+    {% if form_error %}
+        $('#apply-online').show();
+    {% endif %}
+
+	});
+
+	</script>            
+
+    {% endif %}
+
+    {% if page_type == 'detail' %}
+            <div id="job-bottom"> 
+				<div id="job-post-utils"> 
+					<a href="{% url djobberbase_job_list_category object.category.var_name %}" title="{{ object.category }}">&laquo; Go back to category</a><br />
+
+                    <!--
+					Is this job ad fake? <a href="#" onclick="Jobber.ReportSpam('http://www.jobberbase.com/demo/report-spam/', 11); return false;" title="report fake ad">Report it!</a> 
+					&nbsp;&nbsp;<span id="report-spam-response"></span><br /> 
+					<a href="#" onclick="Jobber.SendToFriend.showHide(); return false;" title="Recommend to a friend">Recommend to a friend</a> -->
+
+  				   </div>
+
+                <!-- #job-post-utils --> 
+				<div id="number-views"> 
+					Published at <strong>{{ object.created_on }}</strong> 
+					<br /> 
+					Viewed: <strong>{{ object.views_count }}</strong> times
+				</div><!-- #number-views --> 
+				<div class="clear"></div> 
+			</div><!-- #job-bottom --> 
+			<div id="send-to-friend" style="display: none;"> 
+				<form id="frm-send-to-friend" method="post" action="/send-to-friend/"> 
+					<table> 
+						<tr> 
+							<td class="send-to-friend-address-label"><label for="friend_email">Friend's e-mail:</label></td> 
+							<td><input type="text" name="friend_email" id="friend_email" maxlength="50" size="30" /></td> 
+						</tr> 
+						<tr> 
+							<td><label for="my_email">Your e-mail:</label></td> 
+							<td><input type="text" name="my_email" id="my_email" maxlength="50" size="30" /></td> 
+						</tr> 
+						<tr> 
+							<td colspan="2"> 
+								<input type="submit" name="submit" id="submit" value="Send" /> 
+								&nbsp;&nbsp;<span id="send-to-friend-response"></span> 
+							</td> 
+						</tr> 
+					</table> 
+				</form> 
+			</div>
+    {% endif %}
+{% endif %}
+
+
+{% if page_type == 'verify' %}    
+
+        <form action="{% url djobberbase_job_confirm object.id object.auth %}" method="post" id="publish_form" name="publish_form">
+        {% csrf_token %}
+			<fieldset>
+				<div class="right">
+					<div class="suggestion">If you changed your mind, you may
+					<a title="cancel posting this ad" href="{%url djobberbase_job_deactivate object.id object.auth %}">cancel posting this ad</a></div>
+				</div>
+									<input type="submit" value="Publish this ad" id="submit" name="submit">
+									&nbsp;or&nbsp;
+				<a title="Edit it" href="{% url djobberbase_job_edit object.id object.auth %}">Edit it</a>
+			</fieldset>
+		</form>
+
+{% endif %}
+
+{% endblock %}
+

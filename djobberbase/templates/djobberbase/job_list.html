@@ -1,0 +1,112 @@
+{% extends "djobberbase/base.html" %}
+
+{% block content %}
+
+{% if page_type == 'index' %}
+
+    {% load djobberbase_tags %}
+    {% get_spotlight_jobs 5 as spotlight_jobs %}
+
+        <div id="job-listings"></div> 
+            {% if spotlight_jobs %}
+		    <h2>Spotlight Jobs</h2>
+        	{% for job in spotlight_jobs %}
+			    <div class="row-spot"> 
+			    <span class="row-info"> 
+				    <img src="/img/icon-{{job.jobtype.var_name}}.png" alt="Full Time" /> 
+				    <a href="{% url djobberbase_job_detail job.id job.joburl %}" title="{{ job }}">{{ job }}</a> 
+                    <span class="la">at</span> {{ job.company }} 
+                    <span class="la">in</span>
+                         {% if job.city %} {{job.city}} {% else %} {{job.outside_location}} {% endif %}
+                </span> 
+			    <span class="spotlight-image"></span> 
+		        </div> 
+            {% endfor %}
+            {% endif %}
+
+    {% get_latest_jobs 10 as latest_jobs %}
+
+            {% if latest_jobs %}
+            <h2>Most recent job offers</h2> 
+        	{% for job in latest_jobs %}	
+			    <div class="{% cycle 'row' 'row-alt' %}"> 
+			    <span class="row-info"> 
+				    <img src="/img/icon-{{job.jobtype.var_name}}.png" alt="Full Time" /> 
+                    <a href="{% url djobberbase_job_detail job.id job.joburl %}" title="{{ job }}">{{ job }}</a> 
+                    <span class="la">at</span> {{ job.company }} 
+                    <span class="la">in</span>
+                        {% if job.city %} {{job.city}} {% else %} {{job.outside_location}} {% endif %}
+                </span> 
+			    <span class="time-posted">
+                    <img src="/img/clock.gif" alt="" /> {{ job.created_on|date:"j-m-Y" }}
+                </span>
+        		</div>
+            {% endfor %}
+
+            {% if latest_jobs.count > 0 %}
+            <div id="view_all">
+		        <a href="{% url djobberbase_job_list_all %}">View all »</a>
+        	</div>
+            {% endif %}
+
+            {% endif %}
+
+    {% get_most_applied_jobs 10 as most_applied_jobs %}
+
+            {% if most_applied_jobs %}
+            <h2>Most applied to jobs</h2> 
+        	{% for job in most_applied_jobs %}	
+			    <div class="{% cycle 'row' 'row-alt' %}"> 
+			    <span class="row-info"> 
+				    <img src="/img/icon-{{job.jobtype.var_name}}.png" alt="Full Time" /> 
+                    <a href="{% url djobberbase_job_detail job.id job.joburl %}" title="{{ job }}">{{ job }}</a> 
+                    <span class="la">at</span> {{ job.company }} 
+                    <span class="la">in</span>
+                        {% if job.city %} {{job.city}} {% else %} {{job.outside_location}} {% endif %}
+                </span> 
+			    <span class="time-posted">
+                    <img src="/img/clock.gif" alt="" /> {{ job.created_on|date:"j-m-Y" }}
+                </span>
+        		</div> 
+            {% endfor %}
+            {% endif %}
+
+
+
+{% else %}
+        {% if selected_category or selected_jobtype %}
+            <div id="sort-by-type">
+            Only display&nbsp;  
+            {% get_jobtypes %}
+            {% for jobtype in jobtypes %}
+                <a href="{% url djobberbase_job_list_category_type selected_category.var_name jobtype.var_name %}" title="{{jobtype}}">
+                    <img src="/img/icon-{{jobtype.var_name}}.png" alt="{{jobtype}}">
+                </a>
+            {% endfor %}
+            </div>
+            <h2>Jobs for {{ selected_category }} </h2>
+        {% else %}
+            {% if keywords %}
+                <h2>{{ object_list|length }} Search results found for: '{{ keywords }}'</h2>
+            {% else %}
+                <h2>All jobs</h2>
+            {% endif %}
+        {% endif %}
+    	{% for job in object_list %}
+			    <div class="{% cycle 'row' 'row-alt' %}"> 
+			    <span class="row-info"> 
+				    <img src="/img/icon-{{job.jobtype.var_name}}.png" alt="Full Time" /> 
+                    <a href="{% url djobberbase_job_detail job.id job.joburl %}" title="{{ job }}">{{ job }}</a> 
+                    <span class="la">at</span> {{ job.company }} 
+                    <span class="la">in</span>
+                        {% if job.city %} {{job.city}} {% else %} {{job.outside_location}} {% endif %}
+                </span> 
+			    <span class="time-posted"><img src="/img/clock.gif" alt="" /> {{ job.created_on|date:"j-m-Y" }}</span>
+        		</div> 
+        {% endfor %}
+
+        {% if is_paginated %}{% load paginator %}{% paginator 3 %}{% endif %}
+
+{% endif %}
+
+{% endblock %}

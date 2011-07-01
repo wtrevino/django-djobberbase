@@ -1,0 +1,6 @@
+Hello! :)\n\n
+Your ad was published and is available at {{job_url}}
+\n\n---\nEdit it: {{job_edit_url}}
+\nDeactivate it: {{job_deactivate_url}}
+\n\n---\nThank you for using our service!
+\n The {{site_name}} Team

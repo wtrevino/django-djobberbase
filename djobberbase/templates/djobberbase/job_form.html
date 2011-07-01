@@ -1,0 +1,183 @@
+{% extends "djobberbase/base.html" %}
+
+{% block content %}
+
+<div id="job-listings"></div><!-- #job-listings --> 
+			<div class="steps"> 
+				<div id="step-1" class="step-active"> 
+					Step 1: Write
+				</div> 
+				<div id="step-2"> 
+					Step 2: Verify
+				</div> 
+				<div id="step-3"> 
+					Step 3: Confirm
+				</div> 
+				<div class="clear"></div> 
+			</div> 
+			<br /> 
+						
+			<form id="publish_form" method="post" action="">
+                {% csrf_token %} 
+                {{ form.non_field_errors }}
+				<fieldset> 
+					<legend>Job details</legend> 
+					<table border="0" cellspacing="2" cellpadding="2"> 
+						<tr> 
+							<td colspan="2"> 
+                                {{ form.jobtype.errors }}
+                                 {{ form.jobtype }}
+								&nbsp;&nbsp;
+                                {{ form.category.errors }}
+								 {{ form.category }}
+							</td> 
+						</tr> 
+						<tr> 
+							<td class="publish-label" valign="top">Title:</td> 
+							<td>
+                                {{ form.title.errors }} 
+								{{ form.title }} 
+								<div class="e.g. 'PHP Developer', 'UI designer'"></div> 
+							</td> 
+						</tr> 
+						<tr> 
+							<td valign="top">Location:</td> 
+							<td>
+
+                                {{ form.city }}
+                                <!-- 
+								<select name="city_id" id="city_id" tabindex="3" > 
+									<option value="0">Anywhere</option> 
+									<option value="2" >Buenos Aires</option> 
+									<option value="5" >Cairo</option> 
+									<option value="1" >London</option> 
+									<option value="3" >New York</option> 
+									<option value="4" >Tokyo</option> 
+								</select> 
+                                -->
+								<a id="other_location_label" href="#" onclick="Jobber.HandleLocationOutsideRo(); return false;">other</a> 
+								<div id="location_outside_ro" style="display: none;"> 
+									where ? 
+                                    <!--    
+                                    <input type="text" name="location_outside_ro_where" id="location_outside_ro_where" size="50" maxlength="140"  /> 
+                                    -->
+
+                                    {{ form.outside_location }}
+									<div class="suggestion">e.g. 'London, UK'</div> 
+								</div> 
+							</td> 
+						</tr> 
+						<tr> 
+							<td valign="top">Description:</td> 
+							<td>
+
+                               <!-- <textarea  tabindex="4" name="description" id="description" cols="80" rows="15"></textarea> -->
+                                {{ form.description.errors }}
+                                {{ form.description }}
+																<div class="suggestion"> 
+									<a target="_blank" href="http://www.textism.com/tools/textile/" onclick="$('#textile-suggestions').toggle(); return false;">Format text with Textile</a></div> 
+								<div id="textile-suggestions" style="display: none;"> 
+									<table> 
+											<thead> 
+											<tr class="odd"> 
+												<th>Textile syntax</th> 
+												<th>Final result</th> 
+											</tr> 
+											</thead> 
+											<tbody> 
+											<tr class="even"> 
+												<td>That is _incredible_</td> 
+												<td>That is <em>incredible</em></td> 
+ 
+											</tr> 
+											<tr class="odd"> 
+												<td>*Indeed* it is</td> 
+												<td><strong>Indeed</strong> it is</td> 
+											</tr> 
+											<tr class="even"> 
+												<td>"Wikipedia":http://www.wikipedia.org</td> 
+ 
+												<td><a href="http://www.wikipedia.org">Wikipedia</a></td> 
+											</tr> 
+											<tr class="odd"> 
+												<td>* apples<br />* oranges<br />* pears</td> 
+												<td> 
+ 
+													<ul> 
+														<li>apples</li> 
+														<li>oranges</li> 
+														<li>pears</li> 
+													</ul> 
+												</td> 
+											</tr> 
+ 
+											<tr class="even"> 
+												<td># first<br /># second<br /># third</td> 
+												<td> 
+													<ol> 
+														<li>first</li> 
+														<li>second</li> 
+														<li>third</li> 
+													</ol> 
+												</td> 
+											</tr> 
+											</tbody> 
+										</table> 
+								</div><!-- #textile-suggestions --> 
+							</td> 
+						</tr> 
+					</table> 
+				</fieldset> 
+				<fieldset> 
+					<legend>Hiring company or person</legend> 
+					<table border="0" cellspacing="2" cellpadding="2"> 
+						<tr> 
+							<td class="publish-label">Name:</td> 
+							<td>
+                            {{ form.company.errors }}
+                            {{ form.company }}
+                            <!-- <input  tabindex="6" type="text" name="company" id="company" size="40" value="" />  -->
+							<span class="validation-error"></span> 
+							</td> 
+						</tr> 
+						<tr> 
+							<td valign="top">Website:</td> 
+							<td>http://
+                            {{ form.url.errors }}
+                            {{ form.url }}
+								<div class="suggestion"></div> 
+							</td> 
+						</tr> 
+						<tr> 
+							<td class="publish-label">E-mail<br /><strong>(not published)</strong>:</td> 
+							<td> 
+                            {{ form.poster_email.errors }}
+                            {{ form.poster_email }}
+								<span class="validation-error"></span> 
+								<div class="suggestion"> 
+									Online applications will be sent to this address.
+								</div> 
+							</td> 
+						</tr>
+                        {% if form.captcha %}
+						<tr> 
+							<td class="publish-label">Captcha:</td> 
+							<td> 
+                            {{ form.captcha.errors }}
+                            {{ form.captcha }}
+							</td> 
+						</tr>
+                        {% endif %}
+					</table> 
+				</fieldset> 
+								<fieldset>{{ form.apply_online }}
+<!-- <input type="checkbox" name="apply_online" id="apply_online" class="no-border" checked="checked" /> -->
+<label for="apply_online"><strong>Allow Online Applications</strong> (If you are unchecking it, then add a description on how to apply online above)</label></fieldset> 
+				<fieldset><input type="submit" name="submit" id="submit" value="Step 2: Verify ad" /></fieldset> 
+				<fieldset class="hidden">					
+					<input type="hidden" name="action" value="publish" /> 
+														</fieldset> 
+			</form> 
+
+
+{% endblock %}

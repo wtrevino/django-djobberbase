@@ -1,0 +1,23 @@
+{% extends "djobberbase/base.html" %}
+
+{% block content %}
+    
+    <br/>
+    <ul>
+    {% for city in object_list %}
+        <li>
+            <a href="{% url djobberbase_jobs_in_city city.ascii_name %}">
+                {{ city }} ({{ city.get_total_jobs }})
+            </a>
+        </li>
+    {% endfor %}
+    {% if other_cities_total > 0 %}
+        <li>
+            <a href="{% url djobberbase_jobs_in_other_cities %}">
+                Other cities ({{ other_cities_total }})
+            </a>
+        </li>
+    {% endif %}
+    </ul>
+
+{% endblock %}

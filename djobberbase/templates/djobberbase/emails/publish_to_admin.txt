@@ -1,0 +1,12 @@
+	{{job_url}}
+    {% if job_activate_url %}
+	\n Activate: {{job_activate_url}}
+    {% endif %}
+	\n {{job_title}} at {{job_company}}
+	\n {{job_description}}
+	\n URL: {{job_url}}
+	\n---\n Published by: {{job_poster_email}}
+	\n---\n Edit: {{job_edit_url}}
+	\n Deactivate: {{job_deactivate_url}}
+	\n\n---\n IP: {{job_poster_ip}}
+	\n Date: {{job_post_date}}

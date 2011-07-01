@@ -1,0 +1,16 @@
+{% extends "djobberbase/base.html" %}
+
+{% block content %}
+    
+    <br/>
+    <ul>
+    {% for company in object_list %}
+        <li>
+            <a href="{% url djobberbase_jobs_at company.company_slug %}">
+                {{ company.company }} ({{ company.company__count }})
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}
