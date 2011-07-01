@@ -1,0 +1,5 @@
+*.pyc
+*.swp
+bin
+dist
+MANIFEST
