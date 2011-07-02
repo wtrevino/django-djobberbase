@@ -86,7 +86,7 @@ def job_detail(request, job_id, joburl):
 
     # Instead of throwing a 404 error redirect to job unavailable page 
     except Job.DoesNotExist:
-        return redirect('djobberbase_job_unavailable')
+        return redirect('djobberbase_job_unavailable', permanent=True)
 
 def job_verify(request, job_id, auth):
     ''' A view to display a newly created job.

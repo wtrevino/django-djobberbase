@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from django.core.mail import send_mail, EmailMessage
-from djobberbase.conf import settings as djobberbase_settings
+from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
-from djobberbase.helpers import getIP, handle_uploaded_file, delete_uploaded_file
 from django.template import Context
 from django.contrib.sites.models import Site
+from djobberbase.helpers import getIP, handle_uploaded_file, delete_uploaded_file
+from djobberbase.conf import settings as djobberbase_settings
 from time import time
 import threading
 
