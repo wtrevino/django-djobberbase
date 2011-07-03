@@ -665,7 +665,7 @@ span.la
 #apply-online input#submit
 {
 	background-color:#00CC33;
-	border:1px solid #369;
+	border:1px solid #00691A;
 	color:#fff;
 	cursor:hand;
 }
@@ -674,7 +674,7 @@ span.la
 #send-to-friend input#submit:hover,
 #apply-online input#submit:hover
 {
-	background-color:#0ae;
+	background-color:#00A629;
 }
 
 #publish_form label.small
