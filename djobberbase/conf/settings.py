@@ -77,10 +77,6 @@ DJOBBERBASE_MAIL_APPLY_ONLINE_SUBJECT = getattr(settings,
                                     'DJOBBERBASE_MAIL_APPLY_ONLINE_SUBJECT', 
                                     '[ %(site_name)s ] I wish to apply for %(job_title)s')
 
-if not bool(email_re.match(DJOBBERBASE_ADMIN_EMAIL)):
-    DJOBBERBASE_ADMIN_NOTIFICATIONS = False
-    DJOBBERBASE_POSTER_NOTIFICATIONS = False
-    DJOBBERBASE_APPLICATION_NOTIFICATIONS = False
 
 # Markup settings
 DJOBBERBASE_MARKUP_LANGUAGE = getattr(settings, 'DJOBBERBASE_MARKUP_LANGUAGE', None) #options: 'textile', 'markdown'
