@@ -166,7 +166,7 @@ class Job(models.Model):
         return self.status == self.TEMPORARY
 
     def get_status_with_icon(self):
-        from settings import ADMIN_MEDIA_PREFIX
+        from django.conf import settings
         icon = '<img src="%(admin_media)simg/admin/%(image)s" \
                 alt="%(status)s" /> %(status)s'
         image = {
@@ -174,7 +174,7 @@ class Job(models.Model):
             self.TEMPORARY: 'icon-unknown.gif',
             self.INACTIVE: 'icon-no.gif',
         }[self.status]
-        return icon % {'admin_media':ADMIN_MEDIA_PREFIX,
+        return icon % {'admin_media':settings.ADMIN_MEDIA_PREFIX,
                        'image': image,
                        'status': self.JOB_STATUS_CHOICES[self.status][1]}
     get_status_with_icon.allow_tags = True
