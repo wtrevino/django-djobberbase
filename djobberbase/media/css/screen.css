@@ -659,6 +659,10 @@ span.la
 	border:1px solid #7F635F;
 }
 
+.captcha{
+     vertical-align: middle;
+}
+
 #publish_form input#submit,
 #send-to-friend input#submit,
 #frm-send-edit-link input#submit,
