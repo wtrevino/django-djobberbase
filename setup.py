@@ -21,7 +21,7 @@ setup(
             'media/js/*.js'
         ],
     },
-    version="0.1.0",
+    version="0.1.1",
     license="MIT",
     description = "A clone of the jobberBase job board platform written using the Django framework.",
     author = "Walter Treviño",
