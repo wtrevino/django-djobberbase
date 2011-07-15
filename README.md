@@ -1,32 +1,26 @@
-=======
-Djobberbase
-=======
+# Djobberbase
 
-Djobberbase is an easy to use Django app that allows developers to have a job board in a django site. It replicates almost 100% the functionalities of the jobberBase php software (`http://www.jobberbase.com <http://www.jobberbase.com/>`_).
+Djobberbase is an easy to use Django app that allows developers to have a job board in a django site. It replicates almost 100% the functionalities of the jobberBase php software [http://www.jobberbase.com](http://www.jobberbase.com/).
 
 
-********
-Requirements:
-********
+## Requirements:
+
 
 * Python 2.7+ 
 * Django 1.2.4+ (may work on 1.3 but untested!)
 
-********
-Optional requirements:
-********
+## Optional requirements:
 
-* ``django-simple-captcha`` (for captchas)
-* ``textile`` (for markup)
-* ``markdown`` (for markup)
+* `django-simple-captcha` (for captchas)
+* `textile` (for markup)
+* `markdown` (for markup)
 
-=======
-Djobberbase QuickStart Guide
-=======
 
-********
-Getting Djobberbase
-********
+# Djobberbase QuickStart Guide
+
+
+## Getting Djobberbase
+
 
 For the latest released version of Djobberbase you can get it with **pip** like this:
 
@@ -37,11 +31,8 @@ Alternatively, you can checkout the development version from GitHub (don't forge
     git clone https://github.com/wtrevino/django-djobberbase.git
 
 
+## Optional requirements
 
-
-********
-Optional requirements
-********
 
 If you want to use a captcha in the job post and/or the job application forms, make sure you install [django-simple-captcha](http://code.google.com/p/django-simple-captcha/) beforehand.
 
@@ -56,9 +47,8 @@ If you want to use markup syntax in the job post form, make sure you install eit
     pip install markdown
 
 
-********
-Installation
-********
+## Installation
+
 
 To install Djobberbase into your project just add it in your INSTALLED_APPS. If you also want django-simple-captcha you need to add it as well:
 
