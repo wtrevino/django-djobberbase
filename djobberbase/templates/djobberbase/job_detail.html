@@ -17,7 +17,7 @@
 							</div> 
                     {% endif %}
 				<h2>
-				    <img src="{{MEDIA_URL}}img/icon-{{ object.jobtype.var_name }}.png" alt="Full-time" /> {{ object.title }}
+				    <img src="{{STATIC_URL}}img/icon-{{ object.jobtype.var_name }}.png" alt="Full-time" /> {{ object.title }}
     			</h2>
 			<p> 
 				<span class="fading">at</span>
@@ -134,10 +134,10 @@
 			    apply_cv: { accept: "{%for ext in cv_extensions%}{{ext}}{% if not forloop.last %}|{% endif %}{%endfor%}" }
 		    },
 		    messages: {
-			    apply_name: '<img src="{{MEDIA_URL}}img/icon-delete.png" alt="" / >',
-			    apply_email: '<img src="{{MEDIA_URL}}img/icon-delete.png" alt="" / >',
-			    apply_msg: '<img src="{{MEDIA_URL}}img/icon-delete.png" alt="" / >',
-			    apply_cv: '<img src="{{MEDIA_URL}}img/icon-delete.png" alt="" / >'
+			    apply_name: '<img src="{{STATIC_URL}}img/icon-delete.png" alt="" / >',
+			    apply_email: '<img src="{{STATIC_URL}}img/icon-delete.png" alt="" / >',
+			    apply_msg: '<img src="{{STATIC_URL}}img/icon-delete.png" alt="" / >',
+			    apply_cv: '<img src="{{STATIC_URL}}img/icon-delete.png" alt="" / >'
 		    }
 	    });
 

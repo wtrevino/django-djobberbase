@@ -13,7 +13,7 @@
         	{% for job in spotlight_jobs %}
 			    <div class="row-spot"> 
 			    <span class="row-info"> 
-				    <img src="{{MEDIA_URL}}img/icon-{{job.jobtype.var_name}}.png" alt="Full Time" /> 
+				    <img src="{{STATIC_URL}}img/icon-{{job.jobtype.var_name}}.png" alt="Full Time" /> 
 				    <a href="{% url djobberbase_job_detail job.id job.joburl %}" title="{{ job }}">{{ job }}</a> 
                     <span class="la">at</span> {{ job.company }} 
                     <span class="la">in</span>
@@ -31,14 +31,14 @@
         	{% for job in latest_jobs %}	
 			    <div class="{% cycle 'row' 'row-alt' %}"> 
 			    <span class="row-info"> 
-				    <img src="{{MEDIA_URL}}img/icon-{{job.jobtype.var_name}}.png" alt="Full Time" /> 
+				    <img src="{{STATIC_URL}}img/icon-{{job.jobtype.var_name}}.png" alt="Full Time" /> 
                     <a href="{% url djobberbase_job_detail job.id job.joburl %}" title="{{ job }}">{{ job }}</a> 
                     <span class="la">at</span> {{ job.company }} 
                     <span class="la">in</span>
                         {% if job.city %} {{job.city}} {% else %} {{job.outside_location}} {% endif %}
                 </span> 
 			    <span class="time-posted">
-                    <img src="{{MEDIA_URL}}img/clock.gif" alt="" /> {{ job.created_on|date:"j-m-Y" }}
+                    <img src="{{STATIC_URL}}img/clock.gif" alt="" /> {{ job.created_on|date:"j-m-Y" }}
                 </span>
         		</div>
             {% endfor %}
@@ -58,14 +58,14 @@
         	{% for job in most_applied_jobs %}	
 			    <div class="{% cycle 'row' 'row-alt' %}"> 
 			    <span class="row-info"> 
-				    <img src="{{MEDIA_URL}}img/icon-{{job.jobtype.var_name}}.png" alt="Full Time" /> 
+				    <img src="{{STATIC_URL}}img/icon-{{job.jobtype.var_name}}.png" alt="Full Time" /> 
                     <a href="{% url djobberbase_job_detail job.id job.joburl %}" title="{{ job }}">{{ job }}</a> 
                     <span class="la">at</span> {{ job.company }} 
                     <span class="la">in</span>
                         {% if job.city %} {{job.city}} {% else %} {{job.outside_location}} {% endif %}
                 </span> 
 			    <span class="time-posted">
-                    <img src="{{MEDIA_URL}}img/clock.gif" alt="" /> {{ job.created_on|date:"j-m-Y" }}
+                    <img src="{{STATIC_URL}}img/clock.gif" alt="" /> {{ job.created_on|date:"j-m-Y" }}
                 </span>
         		</div> 
             {% endfor %}
@@ -80,7 +80,7 @@
             {% get_jobtypes %}
             {% for jobtype in jobtypes %}
                 <a href="{% url djobberbase_job_list_category_type selected_category.var_name jobtype.var_name %}" title="{{jobtype}}">
-                    <img src="{{MEDIA_URL}}img/icon-{{jobtype.var_name}}.png" alt="{{jobtype}}">
+                    <img src="{{STATIC_URL}}img/icon-{{jobtype.var_name}}.png" alt="{{jobtype}}">
                 </a>
             {% endfor %}
             </div>
@@ -95,13 +95,13 @@
     	{% for job in object_list %}
 			    <div class="{% cycle 'row' 'row-alt' %}"> 
 			    <span class="row-info"> 
-				    <img src="{{MEDIA_URL}}img/icon-{{job.jobtype.var_name}}.png" alt="Full Time" /> 
+				    <img src="{{STATIC_URL}}img/icon-{{job.jobtype.var_name}}.png" alt="Full Time" /> 
                     <a href="{% url djobberbase_job_detail job.id job.joburl %}" title="{{ job }}">{{ job }}</a> 
                     <span class="la">at</span> {{ job.company }} 
                     <span class="la">in</span>
                         {% if job.city %} {{job.city}} {% else %} {{job.outside_location}} {% endif %}
                 </span> 
-			    <span class="time-posted"><img src="{{MEDIA_URL}}img/clock.gif" alt="" /> {{ job.created_on|date:"j-m-Y" }}</span>
+			    <span class="time-posted"><img src="{{STATIC_URL}}img/clock.gif" alt="" /> {{ job.created_on|date:"j-m-Y" }}</span>
         		</div> 
         {% endfor %}
 
