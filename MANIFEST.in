@@ -7,6 +7,6 @@ recursive-include djobberbase/media/img/ *
 recursive-include djobberbase/media/js/ *
 include AUTHORS
 include LICENSE
-include README.rst
+include README.md
 include TODO
-
+include optional-requirements.txt
