@@ -1,6 +1,5 @@
 # Djobberbase
 
-
 Djobberbase is an easy to use Django app that allows developers to have a job board in a django site. It replicates almost 100% the functionalities of the jobberBase php software [http://www.jobberbase.com](http://www.jobberbase.com/).
 
 ## Demo:
@@ -16,14 +15,8 @@ _Database is reset every hour._
 
 ## Requirements:
 
-* Python 2.7+ 
-* Django 1.2.4+ (may work on 1.3 but untested!)
-
-## Optional requirements:
-
-* `django-simple-captcha` (for captchas)
-* `textile` (for markup)
-* `markdown` (for markup)
+* Python 2.7+
+* Django 1.2.4+
 
 
 # Djobberbase QuickStart Guide
@@ -36,25 +29,26 @@ For the latest released version of Djobberbase you can get it with **pip** like 
 
     pip install django-djobberbase
 
-Alternatively, you can checkout the development version from GitHub (don't forget to put it in your PYTHONPATH!):
+Alternatively, you can checkout the development version from GitHub (don't forget to put it in your PYTHONPATH!):django-simple-captcha, Markdown and textile.
 
     git clone https://github.com/wtrevino/django-djobberbase.git
 
 
 ## Optional requirements
 
+Djobberbase can use 3 optional requirements:
 
-If you want to use a captcha in the job post and/or the job application forms, make sure you install [django-simple-captcha](http://code.google.com/p/django-simple-captcha/) beforehand.
+* `django-simple-captcha` (for captchas)
+* `textile` (for markup)
+* `markdown` (for markup)
 
-    pip install django-simple-captcha
+You can use a requirements file packed with Djobberbase to install all 3:
 
-Note: django-simple-captcha requires a recent version of PIL compiled with FreeType support. You can read more about django-simple-captcha configuration [here](http://code.google.com/p/django-simple-captcha/wiki/CaptchaConfiguration).
+    pip install -r optional-requirements.txt
 
-If you want to use markup syntax in the job post form, make sure you install either [textile](http://pypi.python.org/pypi/textile) or [markdown](http://pypi.python.org/pypi/Markdown).
+Notes: django-simple-captcha requires a recent version of PIL compiled with FreeType support. You can read more about django-simple-captcha configuration [here](http://code.google.com/p/django-simple-captcha/wiki/CaptchaConfiguration).
 
-    pip install textile
-
-    pip install markdown
+You can switch between or use Markdown and textile alternatively for markup capabilities in the job application form as well as the job posting form.
 
 
 ## Installation
@@ -81,34 +75,33 @@ You can now synchronize with the database:
 
     python manage.py syncdb
 
-Djobberbase comes with a default set of templates, if you want to use them you also need to make sure the media (css, js, images) that comes with it is served. To do that you can copy the contents of djobberbase/media/ to your media root location.
+Djobberbase comes with a default set of templates, if you want to use them on a **development environment** you need to make sure the media (css, js, images) that comes with it is served. To do this you can use the STATICFILES_DIR tuple in your project's settings.py.
 
-Example:
+    import djobberbase
 
-    cp -a /usr/lib/python2.7/site-packages/djobberbase/media/* /path/to/your/media/
+    DJOBBERBASE_ROOT = os.path.dirname(os.path.realpath(djobberbase.__file__))
 
-On a development environment you can serve the media by adding these entries to your urls.py:
+    STATICFILES_DIRS = (    
+        ("css", os.path.join(DJOBBERBASE_ROOT, 'media/css')),
+        ("img", os.path.join(DJOBBERBASE_ROOT, 'media/img')),
+        ("js", os.path.join(DJOBBERBASE_ROOT, 'media/js')),
+    )  
 
-    (r'^css/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': '/path/to/your/media/css/'}),
-    (r'^img/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': '/path/to/your/media/img/'}),
-    (r'^js/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': '/path/to/your/media/js/'}),
-
-But remember not to do this on a production environment.
+Also make sure you use the `python manage.py collectstatic` command on your project so it can collect the media files to your static folder.
 
 ## Configuration
 
-Make sure you add `djobberbase.context_processors.general_settings` to your project's template processors in settings.py:
+Make sure you add `djobberbase.context_processors.general_settings` to your project's template processors in settings.py, **remember not to override Django's default template context processors**.:
 
     TEMPLATE_CONTEXT_PROCESSORS = (
-        'django.contrib.auth.context_processors.auth',
-        'django.core.context_processors.debug',
-        'django.core.context_processors.i18n',
-        'django.core.context_processors.media',
-        'django.contrib.messages.context_processors.messages',
-        'djobberbase.context_processors.general_settings'
+        "django.contrib.auth.context_processors.auth",
+        "django.core.context_processors.debug",
+        "django.core.context_processors.i18n",
+        "django.core.context_processors.media",
+        "django.core.context_processors.static",
+        "django.core.context_processors.tz",
+        "django.contrib.messages.context_processors.messages",
+        "djobberbase.context_processors.general_settings"
     )
 
 In order to make use of email notifications you need to configure Django email settings in settings.py:
