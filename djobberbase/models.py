@@ -6,16 +6,21 @@ from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
 from django.utils.encoding import smart_str, force_unicode
 from django.utils.translation import ugettext_lazy as _
+from django import VERSION as django_version
+
 from djobberbase.helpers import last_hour, getIP
 from djobberbase.managers import ActiveJobsManager, TempJobsManager
 from djobberbase.conf import settings as djobberbase_settings
+
 import datetime
 import uuid
 import time
-try: 
-   from hashlib import md5
+
+try:
+    from hashlib import md5
 except ImportError:
-   from md5 import md5
+    from md5 import md5
+
 
 class Category(models.Model):
     ''' The Category model, very straight forward. Includes a get_total_jobs
@@ -28,7 +33,7 @@ class Category(models.Model):
     title = models.TextField(_('Title'), blank=True)
     description = models.TextField(_('Description'), blank=True)
     keywords = models.TextField(_('Keywords'), blank=True)
-    category_order = models.PositiveIntegerField(_('Category order'), 
+    category_order = models.PositiveIntegerField(_('Category order'),
                                                     unique=True, blank=True)
 
     class Meta:
@@ -40,7 +45,7 @@ class Category(models.Model):
 
     def __unicode__(self):
         return self.name
-    
+
     @models.permalink
     def get_absolute_url(self):
         return ('djobberbase_job_list_category', [self.var_name])
@@ -75,7 +80,8 @@ class Type(models.Model):
     def save(self, *args, **kwargs):
         if not self.var_name:
             self.var_name = slugify(self.name)
-        super(Type, self).save(*args, **kwargs)        
+        super(Type, self).save(*args, **kwargs)
+
 
 class City(models.Model):
     ''' A model for cities, with a get_total_jobs method to get
@@ -98,7 +104,8 @@ class City(models.Model):
     def save(self, *args, **kwargs):
         if not self.ascii_name:
             self.ascii_name = slugify(self.name)
-        super(City, self).save(*args, **kwargs) 
+        super(City, self).save(*args, **kwargs)
+
 
 class Job(models.Model):
     ''' The basic job model.
@@ -111,18 +118,22 @@ class Job(models.Model):
         (TEMPORARY, _('Temporary')),
         (ACTIVE, _('Active'))
     )
-    category = models.ForeignKey(Category, verbose_name=_('Category'), blank=False, null=False)
-    jobtype = models.ForeignKey(Type, verbose_name=_('Job Type'), blank=False, null=False)
+    if django_version[:2] > (1, 2):
+        category = models.ForeignKey(Category, verbose_name=_('Category'), blank=False, null=True, on_delete=models.SET_NULL)
+        jobtype = models.ForeignKey(Type, verbose_name=_('Job Type'), blank=False, null=True, on_delete=models.SET_NULL)
+    else:
+        category = models.ForeignKey(Category, verbose_name=_('Category'), blank=False, null=False)
+        jobtype = models.ForeignKey(Type, verbose_name=_('Job Type'), blank=False, null=False)
     title = models.CharField(verbose_name=_('Title'), max_length=100, blank=False)
     description = models.TextField(_('Description'), blank=False)
     description_html = models.TextField(editable=False)
     company = models.CharField(_('Company'), max_length=150, blank=False)
-    company_slug = models.SlugField(max_length=150, 
+    company_slug = models.SlugField(max_length=150,
                                             blank=False, editable=False)
     city = models.ForeignKey(City, verbose_name=_('City'), null=True, blank=True)
     outside_location = models.CharField(_('Outside location'), max_length=150, blank=True)
     #url of the company
-    url = models.URLField(verify_exists=False, max_length=150, blank=True)    
+    url = models.URLField(verify_exists=False, max_length=150, blank=True)
     created_on = models.DateTimeField(_('Created on'), editable=False, \
                                         default=datetime.datetime.now())
     status = models.IntegerField(choices=JOB_STATUS_CHOICES, default=TEMPORARY)
@@ -133,7 +144,7 @@ class Job(models.Model):
     poster_email = models.EmailField(_('Poster email'), blank=False, help_text=_('Applications will be sent to this address.'))
     apply_online = models.BooleanField(default=True, verbose_name=_('Allow online applications.'),
                                     help_text=_('If you are unchecking this, then add a description on how to apply online!'))
-    spotlight = models.BooleanField(_('Spotlight'), default=False)    
+    spotlight = models.BooleanField(_('Spotlight'), default=False)
     objects = models.Manager()
     active = ActiveJobsManager()
     temporary = TempJobsManager()
@@ -147,14 +158,14 @@ class Job(models.Model):
 
     def get_application_count(self):
         return JobStat.objects.filter(job=self, stat_type='A').count()
-        
+
     def increment_view_count(self, request):
-        lh=last_hour()
-        ip=getIP(request)
-        hits=JobStat.objects.filter(created_on__range=lh, 
+        lh = last_hour()
+        ip = getIP(request)
+        hits = JobStat.objects.filter(created_on__range=lh,
                                         ip=ip, stat_type='H', job=self).count()
         if hits < djobberbase_settings.DJOBBERBASE_MAX_VISITS_PER_HOUR:
-            self.views_count=self.views_count+1
+            self.views_count = self.views_count + 1
             self.save()
             new_hit = JobStat(ip=ip, stat_type='H', job=self)
             new_hit.save()
@@ -217,14 +228,14 @@ class Job(models.Model):
 
     @models.permalink
     def get_activation_url(self):
-        return ('djobberbase_job_activate', [self.id, self.auth])		
+        return ('djobberbase_job_activate', [self.id, self.auth])
 
     @models.permalink
     def get_deactivation_url(self):
         return ('djobberbase_job_deactivate', [self.id, self.auth])
 
     def clean(self):
-        #making sure a job location is selected/typed
+        #making sure a job location is selected/typed in
         if self.city:
             self.outside_location = ''
         elif len(self.outside_location.strip()) > 0:
@@ -237,7 +248,7 @@ class Job(models.Model):
         if not self.auth:
             self.auth = md5(unicode(self.id) + \
                             unicode(uuid.uuid1()) + \
-                            unicode(time.time()) ).hexdigest()
+                            unicode(time.time())).hexdigest()
         #saving company slug
         self.company_slug = slugify(self.company)
 
@@ -263,7 +274,8 @@ class Job(models.Model):
         else:
             self.description_html = self.description
         super(Job, self).save(*args, **kwargs)
-        
+
+
 class JobStat(models.Model):
     APPLICATION = 'A'
     HIT = 'H'
@@ -273,31 +285,44 @@ class JobStat(models.Model):
         (HIT, _('Hit')),
         (SPAM, _('Spam')),
     )
-    job = models.ForeignKey(Job)
+    if django_version[:2] > (1, 2):
+        job = models.ForeignKey(Job, blank=False, null=True, on_delete=models.SET_NULL)
+    else:
+        job = models.ForeignKey(Job)
     created_on = models.DateTimeField(default=datetime.datetime.now())
     ip = models.IPAddressField()
     stat_type = models.CharField(max_length=1, choices=STAT_TYPES)
+    description = models.CharField(_('Description'), max_length=250)
 
     class Meta:
         verbose_name = _('Job Stat')
         verbose_name_plural = _('Job Stats')
-    
+
     def __unicode__(self):
+        return self.description
+
+    def save(self, *args, **kwargs):
         if self.stat_type == 'A':
-            u = 'Job application for "' +self.job.title+ '" from IP: '+ self.ip
+            self.description = u'Job application for [%d]%s from IP: %s' % \
+                                            (self.job.pk, self.job.title, self.ip)
         elif self.stat_type == 'H':
-            u = 'Visit for "' +self.job.title+ '" from IP: ' +self.ip
+            self.description = u'Visit for [%d]%s from IP: %s' % \
+                                            (self.job.pk, self.job.title, self.ip)
         elif self.stat_type == 'S':
-            u = 'Spam report for "' +self.job.title+ '" from IP: ' + self.ip
-        return u
-        
+            self.description = u'Spam report for [%d]%s from IP: %s' % \
+                                            (self.job.pk, self.job.title, self.ip)
+        else:
+            self.description = u"Unkwown stat"
+        super(JobStat, self).save(*args, **kwargs)
+
+
 class JobSearch(models.Model):
     keywords = models.CharField(_('Keywords'), max_length=100, blank=False)
     created_on = models.DateTimeField(_('Created on'), default=datetime.datetime.now())
-    
+
     class Meta:
         verbose_name = _('Search')
         verbose_name_plural = _('Searches')
-    
+
     def __unicode__(self):
         return self.keywords
