@@ -25,7 +25,7 @@ setup(
     license="MIT",
     description = "A clone of the jobberBase job board platform written using the Django framework.",
     author = "Walter Treviño",
-    author_email = "wtrevino@derelict.mx",
+    author_email = "walter.trevino@gmail.com",
     url = "https://github.com/wtrevino/django-djobberbase",
     keywords = ["django", "python", "jobberbase", "job board"],
     classifiers=[
