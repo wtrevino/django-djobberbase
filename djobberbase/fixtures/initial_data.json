@@ -1,0 +1,107 @@
+[
+  {
+    "model": "djobberbase.category",
+    "pk": 1,
+    "fields": {
+      "name": "Programming",
+      "var_name": "programming",
+      "category_order": 0
+    }
+  },
+  {
+    "model": "djobberbase.category",
+    "pk": 2,
+    "fields": {
+      "name": "Marketing",
+      "var_name": "marketing",
+      "category_order": 1
+    }
+  },
+  {
+    "model": "djobberbase.category",
+    "pk": 3,
+    "fields": {
+      "name": "Design",
+      "var_name": "design",
+      "category_order": 2
+    }
+  },
+  {
+    "model": "djobberbase.type",
+    "pk": 1,
+    "fields": {
+      "name": "Full time",
+      "var_name": "fulltime"
+    }
+  },
+  {
+    "model": "djobberbase.type",
+    "pk": 2,
+    "fields": {
+      "name": "Part time",
+      "var_name": "parttime"
+    }
+  },
+  {
+    "model": "djobberbase.type",
+    "pk": 3,
+    "fields": {
+      "name": "Freelance",
+      "var_name": "freelance"
+    }
+  },  
+  {
+    "model": "djobberbase.city",
+    "pk": 1,
+    "fields": {
+      "name": "Los Angeles",
+      "ascii_name": "los-angeles"
+    }
+  },
+  {
+    "model": "djobberbase.city",
+    "pk": 2,
+    "fields": {
+      "name": "Mumbai",
+      "ascii_name": "mumbai"
+    }
+  },
+  {
+    "model": "djobberbase.city",
+    "pk": 3,
+    "fields": {
+      "name": "London",
+      "ascii_name": "london"
+    }
+  },
+  {
+    "model": "djobberbase.job",
+    "pk": 1,
+    "fields": {
+      "category": 1,
+      "jobtype": 2,
+      "title": "Web developer",
+      "description": "Lorem ipsum.",
+      "company": "Tyrell",
+      "joburl": "web-developer-at-tyrell",
+      "city": 3,
+      "status": 2,
+      "poster_email": "poster@email.com"
+    }
+  },
+  {
+    "model": "djobberbase.job",
+    "pk": 2,
+    "fields": {
+      "category": 3,
+      "jobtype": 3,
+      "title": "Designer",
+      "description": "Lorem ipsum.",
+      "company": "Tyrell",
+      "joburl": "designer-at-tyrell",
+      "city": 2,
+      "status": 2,
+      "poster_email": "poster@email.com"
+    }
+  }  
+]
