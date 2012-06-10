@@ -75,7 +75,7 @@ You can now synchronize with the database:
 
     python manage.py syncdb
 
-Djobberbase comes with a default set of templates, if you want to use them on a **development environment** you need to make sure the media (css, js, images) that comes with it is served. To do this you can use the STATICFILES_DIR tuple in your project's settings.py.
+Djobberbase comes with a default set of templates, if you want to use them on a **development environment** you need to make sure the media (css, js, images) that comes with it is served. To do this you can use the STATICFILES_DIR tuple in your project's settings.py (Django 1.3+).
 
     import djobberbase
 
