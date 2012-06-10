@@ -1,0 +1,4 @@
+PIL>=1.1.7
+django-simple-captcha>=0.3.4
+textile>=2.1.5
+Markdown>=2.1.1
