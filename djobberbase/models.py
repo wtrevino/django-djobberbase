@@ -273,6 +273,7 @@ class Job(models.Model):
                                                 smart_str(self.description))))
         else:
             self.description_html = self.description
+
         super(Job, self).save(*args, **kwargs)
 
 
