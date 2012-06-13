@@ -27,6 +27,7 @@ class JobAdmin(admin.ModelAdmin):
                                     'city', 'outside_location', 'description']}),
         (_('Company Info'), {'fields': ['company', 'url', 'poster_email']}),
         (_('Admin Info'),  {'fields': ['apply_online', 'status', 'spotlight']}),
+        (_('Sites info'),  {'fields': ['sites']}),
     ]
     list_display = ('title', 'company', 'created_on', 'get_status_with_icon', 'spotlight')
     actions = [activate_jobs, deactivate_jobs, mark_spotlight]

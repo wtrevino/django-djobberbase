@@ -7,6 +7,7 @@ from django.utils.safestring import mark_safe
 from django.utils.encoding import smart_str, force_unicode
 from django.utils.translation import ugettext_lazy as _
 from django import VERSION as django_version
+from django.contrib.sites.models import Site
 
 from djobberbase.helpers import last_hour, getIP
 from djobberbase.managers import ActiveJobsManager, TempJobsManager
@@ -148,6 +149,7 @@ class Job(models.Model):
     objects = models.Manager()
     active = ActiveJobsManager()
     temporary = TempJobsManager()
+    sites = models.ManyToManyField(Site)
 
     class Meta:
         verbose_name = _('Job')
