@@ -8,6 +8,8 @@ from django.utils.encoding import smart_str, force_unicode
 from django.utils.translation import ugettext_lazy as _
 from django import VERSION as django_version
 from django.contrib.sites.models import Site
+from django.contrib.sites.managers import CurrentSiteManager
+from django.conf import settings as django_settings
 
 from djobberbase.helpers import last_hour, getIP
 from djobberbase.managers import ActiveJobsManager, TempJobsManager
@@ -147,6 +149,7 @@ class Job(models.Model):
                                     help_text=_('If you are unchecking this, then add a description on how to apply online!'))
     spotlight = models.BooleanField(_('Spotlight'), default=False)
     objects = models.Manager()
+    on_site = CurrentSiteManager()
     active = ActiveJobsManager()
     temporary = TempJobsManager()
     sites = models.ManyToManyField(Site)
@@ -157,6 +160,17 @@ class Job(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def get_sites(self):
+        return ', '.join([site.name for site in self.sites.all()])
+    get_sites.allow_tags = True
+    get_sites.admin_order_field = 'sites'
+    get_sites.short_description = 'Sites'
+
+    def get_location(self):
+        return self.city or self.outside_location
+    get_location.admin_order = 'location'
+    get_location.admin_order = 'Location'
 
     def get_application_count(self):
         return JobStat.objects.filter(job=self, stat_type='A').count()
@@ -277,6 +291,9 @@ class Job(models.Model):
             self.description_html = self.description
 
         super(Job, self).save(*args, **kwargs)
+        current_site = Site.objects.get(pk=django_settings.SITE_ID)
+        if current_site not in self.sites.all():
+            self.sites.add(current_site)
 
 
 class JobStat(models.Model):

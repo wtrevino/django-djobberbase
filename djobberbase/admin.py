@@ -29,7 +29,7 @@ class JobAdmin(admin.ModelAdmin):
         (_('Admin Info'),  {'fields': ['apply_online', 'status', 'spotlight']}),
         (_('Sites info'),  {'fields': ['sites']}),
     ]
-    list_display = ('title', 'company', 'created_on', 'get_status_with_icon', 'spotlight')
+    list_display = ('title', 'get_location', 'get_sites', 'company', 'created_on', 'get_status_with_icon', 'spotlight')
     actions = [activate_jobs, deactivate_jobs, mark_spotlight]
 
 
