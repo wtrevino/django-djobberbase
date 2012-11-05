@@ -153,8 +153,10 @@
 
     {% if page_type == 'detail' %}
             <div id="job-bottom"> 
-				<div id="job-post-utils"> 
+				<div id="job-post-utils">
+                    {% if object.category %}
 					<a href="{% url djobberbase_job_list_category object.category.var_name %}" title="{{ object.category }}">&laquo; Go back to category</a><br />
+                    {% endif %}
 
                     <!--
 					Is this job ad fake? <a href="#" onclick="Jobber.ReportSpam('http://www.jobberbase.com/demo/report-spam/', 11); return false;" title="report fake ad">Report it!</a> 
