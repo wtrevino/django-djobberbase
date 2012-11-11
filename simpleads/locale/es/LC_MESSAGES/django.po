@@ -1,0 +1,238 @@
+# -*- coding: utf-8 -*-
+# Djobberbase spanish translation file.
+# Copyright (C) 2011 Walter Treviño
+# This file is distributed under the same license as the django-simpleads package.
+# Walter Treviño <wtrevino@derelict.mx>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-07-10 02:43-0500\n"
+"PO-Revision-Date: 2011-07-09 22:57-0500\n"
+"Last-Translator: Walter Treviño <wtrevino@derelict.mx>\n"
+"Language: Spanish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:9
+msgid "Activate selected jobs."
+msgstr "Activar trabajos seleccionados."
+
+#: admin.py:13
+msgid "Deactivate selected jobs."
+msgstr "Desactivar trabajos seleccionados."
+
+#: admin.py:17
+msgid "Mark selected jobs as spotlight."
+msgstr "Destacar trabajos seleccionados."
+
+#: admin.py:21
+msgid "Job Details"
+msgstr "Detalles del trabajo"
+
+#: admin.py:23
+msgid "Company Info"
+msgstr "Información de la compañía"
+
+#: admin.py:24
+msgid "Admin Info"
+msgstr "Información administrativa"
+
+#: feeds.py:20
+#, python-format
+msgid " %(site_name)s RSS Job feed"
+msgstr "Fuente RSS de trabajos en %(site_name)s"
+
+#: feeds.py:22
+#, python-format
+msgid ": %(category)s jobs"
+msgstr ": trabajos de %(category)s"
+
+#: feeds.py:33
+msgid "Latest jobs"
+msgstr "Últimos trabajos"
+
+#: feeds.py:35
+#, python-format
+msgid "Latest jobs for %(category)s "
+msgstr "Últimos trabajos para %(category)s "
+
+#: forms.py:81
+#, python-format
+msgid ""
+"You need to wait %(remaining)s more minute(s) before you can apply for a job "
+"again."
+msgstr ""
+"Debe esperar %(remaining)s minuto(s) más para volver a enviar una solicitud."
+
+#: forms.py:87
+msgid "Your resume/CV has an invalid extension."
+msgstr "Su currículum tiene una extensión inválida."
+
+#: forms.py:91
+#, python-format
+msgid "Your resume/CV must not exceed the file size limit. (%(size)sMB)"
+msgstr "Su currículum no debe exceder el límite de tamaño (%(size)sMB)"
+
+#: models.py:26 models.py:65 models.py:85
+msgid "Name"
+msgstr "Nombre"
+
+#: models.py:27 models.py:66
+msgid "Slug"
+msgstr "Slug"
+
+#: models.py:28 models.py:116
+msgid "Title"
+msgstr "Título"
+
+#: models.py:29 models.py:117
+msgid "Description"
+msgstr "Descripción"
+
+#: models.py:30 models.py:281
+msgid "Keywords"
+msgstr "Palabras clave"
+
+#: models.py:31
+msgid "Category order"
+msgstr "Orden de categoría"
+
+#: models.py:35 models.py:114
+msgid "Category"
+msgstr "Categoría"
+
+#: models.py:36
+msgid "Categories"
+msgstr "Categorías"
+
+#: models.py:69
+msgid "Type"
+msgstr "Tipo"
+
+#: models.py:70
+msgid "Types"
+msgstr "Tipos"
+
+#: models.py:86
+msgid "ASCII Name"
+msgstr "Nombre ASCII"
+
+#: models.py:89 models.py:122
+msgid "City"
+msgstr "Localidad"
+
+#: models.py:90
+msgid "Cities"
+msgstr "Localidades"
+
+#: models.py:110
+msgid "Inactive"
+msgstr "Inactivo"
+
+#: models.py:111
+msgid "Temporary"
+msgstr "Temporal"
+
+#: models.py:112
+msgid "Active"
+msgstr "Activo"
+
+#: models.py:115
+msgid "Job Type"
+msgstr "Tipo"
+
+#: models.py:119
+msgid "Company"
+msgstr "Compañía"
+
+#: models.py:123
+msgid "Outside location"
+msgstr "Localidad foránea"
+
+#: models.py:126 models.py:282
+msgid "Created on"
+msgstr "Creado el"
+
+#: models.py:133
+msgid "Poster email"
+msgstr "Email del publicante"
+
+#: models.py:133
+msgid "Applications will be sent to this address."
+msgstr "Las solicitudes serán enviadas a esta dirección."
+
+#: models.py:134
+msgid "Allow online applications."
+msgstr "Pemitir solicitudes en línea."
+
+#: models.py:135
+msgid ""
+"If you are unchecking this, then add a description on how to apply online!"
+msgstr "Si no selecciona esta opción, asegúrese de indicar como contactarle."
+
+#: models.py:136
+msgid "Spotlight"
+msgstr "Destacado"
+
+#: models.py:142
+msgid "Job"
+msgstr "Trabajo"
+
+#: models.py:143
+msgid "Jobs"
+msgstr "Trabajos"
+
+#: models.py:219
+msgid "You must select or type a job location."
+msgstr "Debe introducir o seleccionar una localidad."
+
+#: models.py:258
+msgid "Application"
+msgstr "Solicitud"
+
+#: models.py:259
+msgid "Hit"
+msgstr "Visita"
+
+#: models.py:260
+msgid "Spam"
+msgstr "Reporte de Spam"
+
+#: models.py:268
+msgid "Job Stat"
+msgstr "Estadísticas"
+
+#: models.py:269
+msgid "Job Stats"
+msgstr "Estadística"
+
+#: models.py:285
+msgid "Search"
+msgstr "Búsqueda"
+
+#: models.py:286
+msgid "Searches"
+msgstr "Búsquedas"
+
+#: views.py:62
+msgid "Your application was sent successfully."
+msgstr "Solicitud enviada con éxito."
+
+#: views.py:173
+msgid "Your job post needs to be verified by a moderator."
+msgstr "Su trabajo debe ser verificado por un moderador."
+
+#: views.py:180
+msgid "Your job post has been published."
+msgstr "Su trabajo ha sido publicado."
+
+#: views.py:218
+msgid "Your job has been activated."
+msgstr "Su trabajo ha sido activado."
+
+#: views.py:233
+msgid "Your job has been deactivated."
+msgstr "Su trabajo ha sido desactivado."

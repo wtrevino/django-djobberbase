@@ -2,17 +2,17 @@
 
 from distutils.core import setup
 setup(
-    name = "django-djobberbase",
+    name = "django-simpleads,
     packages = [
-            "djobberbase",
-            "djobberbase.conf",
-            "djobberbase.templatetags",
+            "simpleads,
+            "simpleadsconf",
+            "simpleadstemplatetags",
     ],
     package_data = {       
-        'djobberbase': [
-            'templates/djobberbase/emails/*.txt',
-            'templates/djobberbase/emails/*.html',
-            'templates/djobberbase/*.html',
+        'simpleads: [
+            'templates/simpleadsemails/*.txt',
+            'templates/simpleadsemails/*.html',
+            'templates/simpleads*.html',
             'locale/es/LC_MESSAGES/django.mo',
             'locale/es/LC_MESSAGES/django.po',
             'media/css/*.css',
@@ -26,7 +26,7 @@ setup(
     description = "A clone of the jobberBase job board platform written using the Django framework.",
     author = "Walter Treviño",
     author_email = "walter.trevino@gmail.com",
-    url = "https://github.com/wtrevino/django-djobberbase",
+    url = "https://github.com/wtrevino/django-simpleads,
     keywords = ["django", "python", "jobberbase", "job board"],
     classifiers=[
         'Development Status :: 4 - Beta',
