@@ -1,16 +1,8 @@
-# Djobberbase
+# Djobberbase [UNMANTAINED]
+
+**This project is no longer mantained and incompatible with recent versions of Django.**
 
 Djobberbase is an easy to use Django app that allows developers to have a job board in a django site. It replicates almost 100% the functionalities of the jobberBase php software [http://www.jobberbase.com](http://www.jobberbase.com/).
-
-## Demo:
-
-[Job board](http://derelict.mx/demo1/)
-
-[Admin](http://derelict.mx/admin/)
-  User: **demo**
-  Password: **demo**
-
-_Database is reset every hour._    
 
 
 ## Requirements:
